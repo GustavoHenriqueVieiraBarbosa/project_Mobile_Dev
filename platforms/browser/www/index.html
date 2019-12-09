@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!--
+  Customize this policy to fit your own app's needs. For more guidance, see:
+      https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+  Some notes:
+      * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+      * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+      * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+          * Enable inline JS: add 'unsafe-inline' to default-src
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: gap: content:">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#2196f3">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <title>Gustavo's Project</title>
+
+  <link rel="stylesheet" href="framework7/css/framework7.bundle.min.css">
+  <link rel="stylesheet" href="css/icons.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <div id="app">
+    Status bar overlay for fullscreen mode
+    <div class="statusbar"></div>
+    <!-- Left panel with cover effect-->
+    <div class="panel panel-left panel-cover theme-dark">
+      <div class="view">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="title">Left Panel</div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="block">Left panel content goes here</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right panel with reveal effect-->
+    <div class="panel panel-right panel-reveal theme-dark">
+      <div class="view">
+        <div class="page">
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="title">Right Panel</div>
+            </div>
+          </div>
+          <div class="page-content">
+            <div class="block">Right panel content goes here</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Views/Tabs container -->
+    <div class="views tabs safe-areas">
+      <!-- Tabbar for switching views-tabs -->
+      <div class="toolbar tabbar-labels toolbar-bottom">
+        <div class="toolbar-inner">
+          <a href="#view-home" class="tab-link tab-link-active">
+            <i class="icon f7-icons ios-only">home</i>
+            <i class="icon f7-icons ios-only icon-ios-fill">home_fill</i>
+            <i class="icon material-icons md-only">home</i>
+            <span class="tabbar-label">Home</span>
+          </a>  
+        </div>
+      </div>
+      <!-- Your main view/tab, should have "view-main" class. It also has "tab-active" class -->
+      <div id="view-home" class="view view-main tab tab-active">
+        <!-- Page, data-name contains page name which can be used in page callbacks -->
+        <div class="page" data-name="home">
+          <!-- Top Navbar -->
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="left">
+              </div>
+              <div class="title sliding">Helping BackPackers</div>
+              <div class="right">
+              </div>
+            </div>
+          </div>
+
+          <!-- Scrollable page content-->
+          <div class="page-content">
+            <div id="GPS Location">
+                 
+                
+                <!--Here starts OpenCage API  -->
+                
+                <h1><b>Location</b></h1></br>
+                  <div><p id="country"></p></div>            
+                  <div><p id="city"></p></div>
+                  <div><p id="localcurrency"></p></div>
+                  <input type="hidden" id='iso_code'>
+                  <div><p id="latitude"></p></div>
+                  <div><p id="longitude"></p></div>
+                  
+                  <!-- Here starts the APILayer USD to Local Currebcy -->
+                  
+                  <h1><b>Currency Converter:</b></h1></br>
+                  <p id="1"></p>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">USD:</div>
+                      <div class="item-input-wrap">
+                        <input id="usd" type="text" placeholder="amountHere"/>
+                        <input type="hidden" id="position">
+                      </div>
+                    </div>
+                  </div>
+                 <!-- botton to convert the USD amount to a Local currency amountt -->
+                 <div class="block">
+                    <p class="row">
+                      <button onclick="currencyUsd()" class="col button button-raised button-fill">Convert Me!!</button>
+                    </p>
+                  </div>
+                 
+
+                   <!-- Here starts the APILayer Local Currency to USD -->
+                   <h1><b>Local Currency to USD</b></h1>
+                  <p id="1"></p>
+                  <div class="item-content item-input">
+                    <div class="item-inner">
+                      <div class="item-title item-label">Amount:</div>
+                      <div class="item-input-wrap">
+                        <input id="currencyEur" type="text" placeholder="amountHere"/>
+                      </div>
+                    </div>
+                  </div>
+                   <!-- botton to convert the Local currency amount to USD -->
+                  <div class="block">
+                      <p class="row">
+                        <button onclick="currencytoUSD()" class="col button button-raised button-fill">Convert Me!!</button>
+                      </p>
+                    </div>
+
+                  <!-- Here starts the OpenWeather API -->
+                  <p id="2"></p>
+                  <h1><b>Weather: </b></h1>
+                  <p id="weather"></p>
+                  
+
+                  <!-- Map starts here -->
+
+                  <div class="card demo-card-header-pic">
+                    <div id="map" class="card-header align-items-flex-end">MAP</div>
+                    <div class="card-content card-content-padding"> 
+                    </div>
+ 
+
+                  <!-- Here starts the Write/read botton -->
+
+                  <div class="block">
+                    <p class="row">
+                      <button id="test" onclick="tryingFile()" class="col button button-raised button-fill">Save Here</button>
+                    </p>
+                    <span type="text" id="in"></span>
+                  </div>
+                  <ul id="content">
+                    
+                    <ul>
+              </div>
+ 
+    </div>
+  
+  </div> 
+  
+
+  <!-- Framework7 library -->
+  <script src="framework7/js/framework7.bundle.min.js"></script>
+
+  <!-- App routes -->
+  <script src="js/routes.js"></script>
+  <script type="text/javascript" src="cordova.js"></script>
+  <!-- Your custom app scripts -->
+  <script src="js/app.js"></script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCpCaHnvssHf741m8Sw2NLZ0A3RmO9iWO8&callback"></script>
+</body>
+</html>
